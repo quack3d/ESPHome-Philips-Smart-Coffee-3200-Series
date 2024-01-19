@@ -11,7 +11,8 @@ AUTO_LOAD = ['switch', 'button',
              'philips_action_button',
              'philips_status_sensor',
              'philips_bean_settings',
-             'philips_size_settings']
+             'philips_size_settings',
+             'philips_milk_settings']
 
 DEPENDENCIES = ['uart']
 
@@ -22,12 +23,12 @@ CONTROLLER_ID = 'controller_id'
 INVERT_POWER_PIN = 'invert_power_pin'
 POWER_TRIP_DELAY = 'power_trip_delay'
 
-philips_series_2200_ns = cg.esphome_ns.namespace('philips_series_2200')
-PhilipsSeries2200 = philips_series_2200_ns.class_(
-    'PhilipsSeries2200', cg.Component)
+philips_series_3200_ns = cg.esphome_ns.namespace('philips_series_3200')
+PhilipsSeries3200 = philips_series_3200_ns.class_(
+    'PhilipsSeries3200', cg.Component)
 
 CONFIG_SCHEMA = cv.Schema({
-    cv.GenerateID(): cv.declare_id(PhilipsSeries2200),
+    cv.GenerateID(): cv.declare_id(PhilipsSeries3200),
     cv.Required(DISPLAY_UART_ID): cv.use_id(UARTComponent),
     cv.Required(MAINBOARD_UART_ID): cv.use_id(UARTComponent),
     cv.Required(POWER_PIN): pins.gpio_output_pin_schema,

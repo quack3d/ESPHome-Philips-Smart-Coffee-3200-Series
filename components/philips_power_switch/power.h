@@ -10,7 +10,7 @@
 
 namespace esphome
 {
-    namespace philips_series_2200
+    namespace philips_series_3200
     {
         namespace philips_power_switch
         {
@@ -70,12 +70,12 @@ namespace esphome
                 {
                     cleaning_ = cleaning;
                 }
-
+                
                 /**
                  * @brief Processes and publish the new switch state.
                  */
                 void update_state(bool state);
-
+               
             private:
                 /// @brief Reference to uart which is connected to the mainboard
                 uart::UARTDevice *mainboard_uart_;
@@ -83,16 +83,16 @@ namespace esphome
                 GPIOPin *power_pin_;
                 /// @brief True if the coffee machine is supposed to clean
                 bool cleaning_ = true;
-                /// @brief length of power outage applied to the display
+                /// @brief length of poweroutage applied to the display
                 uint32_t power_trip_delay_ = 500;
                 /// @brief Determines wether a power trip should be performed
                 bool should_power_trip_ = false;
                 /// @brief Time of last power trip
                 long last_power_trip_ = 0;
                 /// @brief nr of power performed power trips
-                int power_trip_count_ = 0;
+                int power_trip_count_ = 0;                
             };
 
         } // namespace power_switch
-    }     // namespace philips_series_2200
+    }     // namespace philips_series_3200
 } // namespace esphome

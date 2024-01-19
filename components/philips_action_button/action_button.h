@@ -9,7 +9,7 @@
 
 namespace esphome
 {
-    namespace philips_series_2200
+    namespace philips_series_3200
     {
         namespace philips_action_button
         {
@@ -33,6 +33,11 @@ namespace esphome
                 SELECT_AQUA_CLEAN,
                 SELECT_CALC_CLEAN,
                 PLAY_PAUSE,
+                SELECT_AMERICANO,
+                SELECT_CAPPUCCINO,
+                MAKE_AMERICANO,
+                MAKE_CAPPUCCINO,
+                SELECT_MILK_LEVEL
             };
 
             /**
@@ -56,7 +61,7 @@ namespace esphome
                  *
                  * @param uart uart connected to mainboard
                  */
-                void set_uart_device(uart::UARTDevice *uart) { mainboard_uart_ = uart; };
+                void set_uart_device(uart::UARTDevice *uart) { mainboard_uart_ = uart; };			
 
             private:
                 /**
@@ -78,5 +83,5 @@ namespace esphome
                 uart::UARTDevice *mainboard_uart_;
             };
         } // namespace philips_action_button
-    }     // namespace philips_series_2200
+    }     // namespace philips_series_3200
 } // namespace esphome

@@ -2,16 +2,16 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import number
 from esphome.const import CONF_MODE
-from ..philips_series_2200 import CONTROLLER_ID, PhilipsSeries2200
+from ..philips_series_3200 import CONTROLLER_ID, PhilipsSeries3200
 from ..philips_status_sensor.text_sensor import STATUS_SENSOR_ID, StatusSensor
 
 AUTO_LOAD = ['number']
-DEPENDENCIES = ['philips_series_2200', 'philips_status_sensor']
+DEPENDENCIES = ['philips_series_3200', 'philips_status_sensor']
 
 CONF_SOURCE = 'source'
 
 philips_size_settings_ns = cg.esphome_ns.namespace(
-    'philips_series_2200').namespace('philips_size_settings')
+    'philips_series_3200').namespace('philips_size_settings')
 SizeSettings = philips_size_settings_ns.class_(
     'SizeSettings', number.Number, cg.Component)
 
@@ -21,11 +21,13 @@ SOURCES = {
     "ESPRESSO": Source.ESPRESSO,
     "CAPPUCCINO": Source.CAPPUCCINO,
     "HOT_WATER": Source.HOT_WATER,
+    "AMERICANO": Source.AMERICANO,
+    "LATTE_MACCHIATO": Source.LATTE_MACCHIATO
 }
 
 CONFIG_SCHEMA = number.NUMBER_SCHEMA.extend({
     cv.GenerateID(): cv.declare_id(SizeSettings),
-    cv.Required(CONTROLLER_ID): cv.use_id(PhilipsSeries2200),
+    cv.Required(CONTROLLER_ID): cv.use_id(PhilipsSeries3200),
     cv.Required(STATUS_SENSOR_ID): cv.use_id(StatusSensor),
     cv.Optional(CONF_MODE, default="SLIDER"): cv.enum(number.NUMBER_MODES, upper=True),
     cv.Required(CONF_SOURCE): cv.enum(

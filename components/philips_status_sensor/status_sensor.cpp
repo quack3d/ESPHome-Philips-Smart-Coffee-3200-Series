@@ -3,7 +3,7 @@
 
 namespace esphome
 {
-    namespace philips_series_2200
+    namespace philips_series_3200
     {
         namespace philips_status_sensor
         {
@@ -34,7 +34,7 @@ namespace esphome
                 play_pause_led_ = data[16] == 0x07;
 
                 // Check for idle state (selection led on)
-                if (data[3] == 0x07 && data[4] == 0x07 && data[5] == 0x07 && data[6] == 0x07)
+                if (data[3] == 0x07 && data[4] == 0x07 && data[5] == 0x07 && data[13] == 0x00 && data[14] == 0x00 && data[15] == 0x00)
                 {
                     // selecting a beverage can result in a short "busy" period since the play/pause button has not been blinking
                     // This can be circumvented: if the user is on the selection screen/idle we can reset the timer
@@ -81,29 +81,43 @@ namespace esphome
                     if (millis() - play_pause_last_change_ < BLINK_THRESHOLD)
                         update_state((data[5] == 0x07) ? "Coffee selected" : "2x Coffee selected");
                     else
-                        update_state("Busy");
+                        //update_state("Busy");
+						update_state("Brewing Coffee");
                     return;
                 }
 
-                // Steam selected
+                // Steam selected - Latte Macchiato
                 if (data[3] == 0x00 && data[4] == 0x00 && data[5] == 0x00 && data[6] == 0x07)
                 {
                     if (millis() - play_pause_last_change_ < BLINK_THRESHOLD)
-                        update_state(use_cappuccino_?"Cappuccino selected":"Steam selected");
+                        update_state(use_latte_?"Latte Macchiato selected":"Steam selected");
                     else
-                        update_state("Busy");
+                        //update_state("Busy");
+						update_state("Brewing Latte Macchiato");
                     return;
                 }
 
-                // Hot water selected
+                // Cappuccino selected
                 if (data[3] == 0x00 && data[4] == 0x07 && data[5] == 0x00 && data[6] == 0x00)
+                {
+                    if (millis() - play_pause_last_change_ < BLINK_THRESHOLD)
+                        update_state("Cappuccino selected");
+                    else
+                        //update_state("Busy");
+						update_state("Brewing Cappuccino");
+                    return;
+                }
+                
+                // Hot water selected
+                if (data[3] == 0x00 && data[4] == 0x00 && data[5] == 0x00 && data[6] == 0x00 && data[7] == 0x38)
                 {
                     if (millis() - play_pause_last_change_ < BLINK_THRESHOLD)
                         update_state("Hot water selected");
                     else
-                        update_state("Busy");
+                        //update_state("Busy");
+						update_state("Brewing Hot water");
                     return;
-                }
+                }    				
 
                 // Espresso selected
                 if ((data[3] == 0x07 || data[3] == 0x38) && data[4] == 0x00 && data[5] == 0x00 && data[6] == 0x00)
@@ -111,11 +125,23 @@ namespace esphome
                     if (millis() - play_pause_last_change_ < BLINK_THRESHOLD)
                         update_state((data[3] == 0x07) ? "Espresso selected" : "2x Espresso selected");
                     else
-                        update_state("Busy");
+                        //update_state("Busy");
+						update_state("Brewing Espresso");
+                    return;
+                }
+                
+                // Americano selected
+                if (data[3] == 0x00 && data[4] == 0x00 && data[5] == 0x00 && (data[6] == 0x38 || data[7] == 0x7))
+                {
+                    if (millis() - play_pause_last_change_ < BLINK_THRESHOLD)
+                        update_state((data[6] == 0x38) ? "Americano selected" : "2x Americano selected");
+                    else
+                        //update_state("Busy");
+						update_state("Brewing Americano");
                     return;
                 }
             }
 
         } // namespace philips_status_sensor
-    }     // namespace philips_series_2200
+    }     // namespace philips_series_3200
 } // namespace esphome

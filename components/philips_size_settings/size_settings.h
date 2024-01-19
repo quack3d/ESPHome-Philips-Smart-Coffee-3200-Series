@@ -10,7 +10,7 @@
 
 namespace esphome
 {
-    namespace philips_series_2200
+    namespace philips_series_3200
     {
         namespace philips_size_settings
         {
@@ -23,7 +23,9 @@ namespace esphome
                 COFFEE = 0,
                 ESPRESSO,
                 CAPPUCCINO,
-                HOT_WATER
+                HOT_WATER,
+                AMERICANO,
+                LATTE_MACCHIATO
             };
 
             /**
@@ -104,5 +106,5 @@ namespace esphome
             };
 
         } // namespace philips_size_settings
-    }     // namespace philips_series_2200
+    }     // namespace philips_series_3200
 } // namespace esphome

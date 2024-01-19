@@ -7,15 +7,16 @@
 #include "../philips_status_sensor/status_sensor.h"
 #include "../philips_bean_settings/bean_settings.h"
 #include "../philips_size_settings/size_settings.h"
+#include "../philips_milk_settings/milk_settings.h"
 
 #define POWER_STATE_TIMEOUT 500
 
 namespace esphome
 {
-    namespace philips_series_2200
+    namespace philips_series_3200
     {
 
-        class PhilipsSeries2200 : public Component
+        class PhilipsSeries3200 : public Component
         {
         public:
             void setup() override;
@@ -50,7 +51,7 @@ namespace esphome
             {
                 invert_ = invert;
             }
-
+			
             void set_power_trip_delay(uint32_t time)
             {
                 power_trip_delay_ = time;
@@ -66,7 +67,7 @@ namespace esphome
             {
                 power_switch->set_mainboard_uart(&mainboard_uart_);
                 power_switch->set_power_pin(power_pin_);
-                power_switch->set_power_trip_delay(power_trip_delay_);
+                power_switch->set_power_trip_delay(power_trip_delay_);				
                 power_switches_.push_back(power_switch);
             };
 
@@ -109,9 +110,19 @@ namespace esphome
                 size_setting->set_uart_device(&mainboard_uart_);
                 size_setting_.push_back(size_setting);
             }
+            
+            /**
+             * @brief Adds a milk settings entity to this controller
+             * @param milk_sensor reference to a size setting
+             */
+            void add_milk_settings(philips_milk_settings::MilkSettings *milk_setting)
+            {
+                milk_setting->set_uart_device(&mainboard_uart_);
+                milk_setting_.push_back(milk_setting);
+            }            
 
         private:
-            long last_message_from_mainboard_time_ = 0;
+            long last_message_from_mainboard_time_ = 0;        
             long last_message_from_display_time_ = 0;
 
             /// @brief reference to uart connected to the display unit
@@ -126,7 +137,7 @@ namespace esphome
             /// @brief indicates if the power pin should be inverted
             bool invert_ = false;
 
-            /// @brief length of power outage applied to the display
+            /// @brief length of poweroutage applied to the display
             uint32_t power_trip_delay_ = 500;
 
             /// @brief power switch reference
@@ -140,7 +151,10 @@ namespace esphome
 
             /// @brief list of registered water sensors
             std::vector<philips_size_settings::SizeSettings *> size_setting_;
+            
+            /// @brief list of registered milk sensors
+            std::vector<philips_milk_settings::MilkSettings *> milk_setting_;
         };
 
-    } // namespace philips_series_2200
+    } // namespace philips_series_3200
 } // namespace esphome

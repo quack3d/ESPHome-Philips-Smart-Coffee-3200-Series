@@ -12,7 +12,7 @@ namespace esphome
 {
     namespace philips_series_3200
     {
-        namespace philips_bean_settings
+        namespace philips_milk_settings
         {
             /**
              * @brief Source/target of the value
@@ -20,17 +20,14 @@ namespace esphome
              */
             enum Source
             {
-                COFFEE = 0,
-                ESPRESSO,
-                CAPPUCCINO,
-                AMERICANO,
+                CAPPUCCINO = 0,
                 LATTE_MACCHIATO
             };
 
             /**
-             * @brief Reports the currently selected bean count of the coffee machine from the selected source.
+             * @brief Reports the currently selected milk of the coffee machine from the selected source.
              */
-            class BeanSettings : public number::Number, public Component
+            class MilkSettings : public number::Number, public Component
             {
             public:
                 void setup() override;
@@ -42,7 +39,7 @@ namespace esphome
                 void control(float value);
 
                 /**
-                 * @brief Set the source used by this bean settings entity.
+                 * @brief Set the source used by this milk settings entity.
                  *
                  * @param source Source of the value
                  */
@@ -104,6 +101,6 @@ namespace esphome
                 philips_status_sensor::StatusSensor *status_sensor_;
             };
 
-        } // namespace philips_bean_settings
+        } // namespace philips_milk_settings
     }     // namespace philips_series_3200
 } // namespace esphome

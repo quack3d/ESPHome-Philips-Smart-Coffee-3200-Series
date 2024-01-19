@@ -3,7 +3,7 @@
 
 namespace esphome
 {
-    namespace philips_series_2200
+    namespace philips_series_3200
     {
         namespace philips_size_settings
         {
@@ -37,8 +37,13 @@ namespace esphome
                      (source_ == ESPRESSO &&
                       (status_sensor_->get_raw_state().compare("Espresso selected") == 0 ||
                        status_sensor_->get_raw_state().compare("2x Espresso selected") == 0)) ||
+                     (source_ == AMERICANO &&
+                      (status_sensor_->get_raw_state().compare("Americano selected") == 0 ||
+                       status_sensor_->get_raw_state().compare("2x Americano selected") == 0)) ||      
                      (source_ == HOT_WATER &&
                       status_sensor_->get_raw_state().compare("Hot water selected") == 0) ||
+                     (source_ == LATTE_MACCHIATO &&
+                      status_sensor_->get_raw_state().compare("Latte Macchiato selected") == 0) ||                      
                      (source_ == CAPPUCCINO &&
                       status_sensor_->get_raw_state().compare("Cappuccino selected") == 0)))
                 {
@@ -64,6 +69,7 @@ namespace esphome
                         {
                             for (unsigned int i = 0; i <= MESSAGE_REPETITIONS; i++)
                                 mainboard_uart_->write_array({0xD5, 0x55, 0x00, 0x01, 0x02, 0x00, 0x02, 0x00, 0x04, 0x00, 0x20, 0x05});
+                                // mainboard_uart_->write_array({0xD5, 0x55, 0x00, 0x01, 0x03, 0x00, 0x0E, 0x00, 0x04, 0x00, 0x04, 0x07});
                             mainboard_uart_->flush();
                             last_transmission_ = millis();
                         }
@@ -82,5 +88,5 @@ namespace esphome
             }
 
         } // namespace philips_size_settings
-    }     // namespace philips_series_2200
+    }     // namespace philips_series_3200
 } // namespace esphome

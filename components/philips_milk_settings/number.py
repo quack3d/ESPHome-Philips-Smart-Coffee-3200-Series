@@ -10,22 +10,19 @@ DEPENDENCIES = ['philips_series_3200', 'philips_status_sensor']
 
 CONF_SOURCE = 'source'
 
-philips_bean_settings_ns = cg.esphome_ns.namespace(
-    'philips_series_3200').namespace('philips_bean_settings')
-BeanSettings = philips_bean_settings_ns.class_(
-    'BeanSettings', number.Number, cg.Component)
+philips_milk_settings_ns = cg.esphome_ns.namespace(
+    'philips_series_3200').namespace('philips_milk_settings')
+MilkSettings = philips_milk_settings_ns.class_(
+    'MilkSettings', number.Number, cg.Component)
 
-Source = philips_bean_settings_ns.enum("Source")
+Source = philips_milk_settings_ns.enum("Source")
 SOURCES = {
-    "COFFEE": Source.COFFEE,
-    "ESPRESSO": Source.ESPRESSO,
     "CAPPUCCINO": Source.CAPPUCCINO,
-    "AMERICANO": Source.AMERICANO,
-    "LATTE_MACCHIATO": Source.LATTE_MACCHIATO    
+    "LATTE_MACCHIATO": Source.LATTE_MACCHIATO
 }
 
 CONFIG_SCHEMA = number.NUMBER_SCHEMA.extend({
-    cv.GenerateID(): cv.declare_id(BeanSettings),
+    cv.GenerateID(): cv.declare_id(MilkSettings),
     cv.Required(CONTROLLER_ID): cv.use_id(PhilipsSeries3200),
     cv.Required(STATUS_SENSOR_ID): cv.use_id(StatusSensor),
     cv.Optional(CONF_MODE, default="SLIDER"): cv.enum(number.NUMBER_MODES, upper=True),
@@ -43,4 +40,4 @@ async def to_code(config):
 
     cg.add(var.set_source(config[CONF_SOURCE]))
     cg.add(var.set_status_sensor(status_sensor))
-    cg.add(parent.add_bean_settings(var))
+    cg.add(parent.add_milk_settings(var))

@@ -10,7 +10,7 @@
 
 namespace esphome
 {
-    namespace philips_series_2200
+    namespace philips_series_3200
     {
         namespace philips_status_sensor
         {
@@ -42,9 +42,9 @@ namespace esphome
                  * @brief set the cappuccino flag which indicates if cappuccino is reported instead of steam
                  *
                  */
-                void set_use_cappuccino(bool value)
+                void set_use_latte(bool value)
                 {
-                    use_cappuccino_ = value;
+                    use_latte_ = value;
                 }
 
                 /**
@@ -83,11 +83,11 @@ namespace esphome
                 bool play_pause_led_ = false;
 
                 /// @brief indicates if cappuccino should be reported instead of steam
-                bool use_cappuccino_ = false;
+                bool use_latte_ = false;
 
                 /// @brief time of play/pause change
                 long play_pause_last_change_ = 0;
             };
         } // namespace philips_status_sensor
-    }     // namespace philips_series_2200
+    }     // namespace philips_series_3200
 } // namespace esphome

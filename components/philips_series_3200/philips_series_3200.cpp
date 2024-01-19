@@ -1,23 +1,23 @@
 #include "esphome/core/log.h"
-#include "philips_series_2200.h"
+#include "philips_series_3200.h"
 
 #define BUFFER_SIZE 32
 
 namespace esphome
 {
-    namespace philips_series_2200
+    namespace philips_series_3200
     {
 
-        static const char *TAG = "philips_series_2200";
+        static const char *TAG = "philips_series_3200";
 
-        void PhilipsSeries2200::setup()
+        void PhilipsSeries3200::setup()
         {
             power_pin_->setup();
             power_pin_->pin_mode(gpio::FLAG_OUTPUT);
             power_pin_->digital_write(!invert_);
         }
 
-        void PhilipsSeries2200::loop()
+        void PhilipsSeries3200::loop()
         {
             uint8_t buffer[BUFFER_SIZE];
 
@@ -28,7 +28,7 @@ namespace esphome
                 display_uart_.read_array(buffer, size);
 
                 mainboard_uart_.write_array(buffer, size);
-                last_message_from_display_time_ = millis();
+                last_message_from_display_time_ = millis();                
             }
 
             // Read until start index
@@ -64,6 +64,10 @@ namespace esphome
                     // Update size settings
                     for (philips_size_settings::SizeSettings *size_setting : size_setting_)
                         size_setting->update_status(buffer, size);
+
+                    // Update milk settings
+                    for (philips_milk_settings::MilkSettings *milk_setting : milk_setting_)
+                        milk_setting->update_status(buffer, size);
                 }
             }
 
@@ -89,12 +93,12 @@ namespace esphome
             mainboard_uart_.flush();
         }
 
-        void PhilipsSeries2200::dump_config()
+        void PhilipsSeries3200::dump_config()
         {
-            ESP_LOGCONFIG(TAG, "Philips Series 2200");
+            ESP_LOGCONFIG(TAG, "Philips Series 3200");
             display_uart_.check_uart_settings(115200, 1, uart::UART_CONFIG_PARITY_NONE, 8);
             mainboard_uart_.check_uart_settings(115200, 1, uart::UART_CONFIG_PARITY_NONE, 8);
         }
 
-    } // namespace philips_series_2200
+    } // namespace philips_series_3200
 } // namespace esphome
