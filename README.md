@@ -32,14 +32,14 @@ A example configuration can be found [here](example.yaml)
 ## Philips Action Button
 
 - **controller_id**(**Required**, string): The Philips Series 3200-Controller to which this entity belongs
-- **action**(**Required**, int): The action performed by this button. Select one of `MAKE_COFFEE`, `SELECT_COFFEE`, `SELECT_ESPRESSO`, `MAKE_ESPRESSO`, `SELECT_HOT_WATER`, `MAKE_HOT_WATER`, `SELECT_STEAM`, `MAKE_STEAM`, `SELECT_AMERICANO`, `SELECT_CAPPUCCINO`, `MILK`, `BEAN`, `SIZE`, `AQUA_CLEAN`, `CALC_CLEAN`, `PLAY_PAUSE`.
+- **action**(**Required**, int): The action performed by this button. Select one of `MAKE_COFFEE`, `SELECT_COFFEE`, `SELECT_ESPRESSO`, `MAKE_ESPRESSO`, `SELECT_HOT_WATER`, `MAKE_HOT_WATER`, `SELECT_STEAM`, `MAKE_STEAM`, `SELECT_AMERICANO`, `SELECT_LATTE_MACCHIATO`, `SELECT_CAPPUCCINO`, `MILK`, `BEAN`, `SIZE`, `AQUA_CLEAN`, `CALC_CLEAN`, `PLAY_PAUSE`.
 - All other options from [Button](https://esphome.io/components/button/index.html#config-button)
 
 ## Philips Status Sensor
 
 - **controller_id**(**Required**, string): The Philips Series 3200-Controller to which this entity belongs
 - All other options from [Text Sensor](https://esphome.io/components/text_sensor/index.html#config-text-sensor)
-- **use_latte**(**Optional**, boolean): If set to true `Latte Macchiato selected` selected will be reported instead of `Steam selected`. This option is intended for machines like the EP3243 which can make cappuccino. Default to `false`.
+- **use_latte**(**Optional**, boolean): If set to true `Latte Macchiato selected` will be reported instead of `Steam selected`. This option is intended for machines like the EP3243 that can make latte macchiato. Default to `false`.
 
 ## Bean Settings
 
@@ -52,7 +52,7 @@ A example configuration can be found [here](example.yaml)
 
 - **controller_id**(**Required**, string): The Philips Series 3200-Controller to which this entity belongs
 - **status_sensor_id**(**Required**, string): Id of a status sensor which is also connected to the controller.
-- **source**(**Required**, int): The source of this sensor. Select one of `COFFEE`, `ESPRESSO`, `LATTE MACCHIATO`, `HOT_WATER`. When selecting `LATTE MACCHIATO` the related status sensor must use `use_latte = true`.
+- **source**(**Required**, int): The source of this sensor. Select one of `COFFEE`, `ESPRESSO`, `LATTE MACCHIATO`, `CAPPUCCINO`, `AMERICANO`, `HOT_WATER`. When selecting `LATTE MACCHIATO` the related status sensor must use `use_latte = true`.
 - All other options from [Number](https://esphome.io/components/number/index.html#config-number)
 
 ## Milk Settings
