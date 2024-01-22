@@ -3,10 +3,15 @@
 This project integrates a Philips Series 3200 Coffee Machine into [Home Assistant](https://home-assistant.io) through [ESPHome](https://esphome.io). It is a fork of TillFleich's repo for the 2200 Series.
 This component has been developed on a Philips EP3243 and an ESP32 S2 Mini.
 
+A really nice part of this project is that it can be done in a non-abrasive manner. Going back to factory settings is as simple as popping off the display, removing the ESP and connecting one cable back again. This is possible by purchasing an extra cable and connector instead of cutting the existing cable. See the wiring section for details and links to parts.
+
 This component provides a `Power Switch`, a `Status sensor` and various `Buttons` which simulate user input.
 The `Power Switch` can be used to turn on the coffee machine with and without a cleaning cycle during startup.
 
-![Provided entities in HomeAssistant](ha_entities.png?)
+<p float="left">
+  <img src="/esp32_wired.jpg" height="400" /> 
+  <img src="/ha_entities.png" height="400" />
+</p>
 
 You might break/brick your coffee machine by modifying it in any way, shape or form. If you want to use this component, do so at your own risk.
 
@@ -70,16 +75,19 @@ The display is powered by the mainboard and the two units communicate using a se
 The ESP is placed in between this bus to perform a man-in-the-middle attack.
 The RX/TX lines are piped through the ESP such that messages can be read, intercepted and injected.
 
-When injecting a 'turn coffee machine on' command, the coffee machine does turn on, but the display unit does not. To circumvent this behavior we can re-boot the display unit by temporarily removing it's power. Thus the display will power on and operate normally. To perform this operation a transistor or MOSFET can be used.
+When injecting a 'turn coffee machine on' command, the coffee machine does turn on, but the display unit does not. To circumvent this behavior we can re-boot the display unit by temporarily removing it's power. Thus the display will power on and operate normally. To perform this operation a transistor or MOSFET can be used. I used the IRLZ44N.
 
-I got the 8P connector from here: https://www.aliexpress.com/item/1005005142277556.html
-And the 8P 'Same direction' from here: https://www.aliexpress.com/item/1005005026658462.html
+I got the 8P connector from here: https://www.aliexpress.com/item/1005005142277556.html </br>
+And the 8P 'Same direction' from here: https://www.aliexpress.com/item/1005005026658462.html </br>
+And the ESP32 S2 Mini with PSRAM from here: https://www.aliexpress.com/item/1005004971974530.html </br>
 
 The following wiring guideline can be used to add a ESP32 S2 Mini to the coffee machine. **The unlabeled wires should be connected without changes.**
-![Wiring guide](wiring.png)
+<p float="left">
+  <img src="/wiring.png" height="400" />
+</p>
 
 # Troubleshooting
 
 - Make sure your wiring is correct
 - The UART debug function can be used to analyze communication and verify correct wiring
-- The commands used by the display unit may be different between different revisions/models (see Related Work)
+- The commands used by the display unit may be different between different revisions/models
