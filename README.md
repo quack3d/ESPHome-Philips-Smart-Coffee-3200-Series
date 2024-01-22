@@ -6,7 +6,7 @@ This component has been developed on a Philips EP3243 and an ESP32 S2 Mini.
 This component provides a `Power Switch`, a `Status sensor` and various `Buttons` which simulate user input.
 The `Power Switch` can be used to turn on the coffee machine with and without a cleaning cycle during startup.
 
-![Provided entities in HomeAssistant](ha_entities.png)
+![Provided entities in HomeAssistant](ha_entities.png?)
 
 You might break/brick your coffee machine by modifying it in any way, shape or form. If you want to use this component, do so at your own risk.
 
