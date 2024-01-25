@@ -49,7 +49,7 @@ namespace esphome
              */
             void set_invert_power_pin(bool invert)
             {
-                invert_ = invert;
+                initial_pin_state_ = !invert;
             }
 			
             void set_power_trip_delay(uint32_t time)
@@ -67,7 +67,8 @@ namespace esphome
             {
                 power_switch->set_mainboard_uart(&mainboard_uart_);
                 power_switch->set_power_pin(power_pin_);
-                power_switch->set_power_trip_delay(power_trip_delay_);				
+                power_switch->set_power_trip_delay(power_trip_delay_);
+                power_switch->set_initial_state(&initial_pin_state_);
                 power_switches_.push_back(power_switch);
             };
 
@@ -80,6 +81,7 @@ namespace esphome
             void add_action_button(philips_action_button::ActionButton *action_button)
             {
                 action_button->set_uart_device(&mainboard_uart_);
+                action_buttons_.push_back(action_button);
             }
 
             /**
@@ -134,8 +136,8 @@ namespace esphome
             /// @brief pin connect to display panel power transistor/mosfet
             GPIOPin *power_pin_;
 
-            /// @brief indicates if the power pin should be inverted
-            bool invert_ = false;
+            /// @brief the initial power pin state (may be inverted through user configuration)
+            bool initial_pin_state_ = true;
 
             /// @brief length of poweroutage applied to the display
             uint32_t power_trip_delay_ = 500;
@@ -154,6 +156,9 @@ namespace esphome
             
             /// @brief list of registered milk sensors
             std::vector<philips_milk_settings::MilkSettings *> milk_setting_;
+
+            /// @brief list of registered action buttons
+            std::vector<philips_action_button::ActionButton *> action_buttons_;
         };
 
     } // namespace philips_series_3200

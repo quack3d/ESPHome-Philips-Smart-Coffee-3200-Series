@@ -79,7 +79,20 @@ namespace esphome
                 if (data[3] == 0x00 && data[4] == 0x00 && (data[5] == 0x07 || data[5] == 0x38) && data[6] == 0x00)
                 {
                     if (millis() - play_pause_last_change_ < BLINK_THRESHOLD)
-                        update_state((data[5] == 0x07) ? "Coffee selected" : "2x Coffee selected");
+                    {
+                        if (data[9] == 0x38)
+                        {
+                            update_state("Ground Coffee selected");
+                        }
+                        else if (data[11] == 0x00)
+                        {
+                            update_state("Coffee programming mode selected");
+                        }
+                        else
+                        {
+                            update_state((data[5] == 0x07) ? "Coffee selected" : "2x Coffee selected");
+                        }
+                    }
                     else
                         //update_state("Busy");
 						update_state("Brewing Coffee");
@@ -112,7 +125,16 @@ namespace esphome
                 if (data[3] == 0x00 && data[4] == 0x00 && data[5] == 0x00 && data[6] == 0x00 && data[7] == 0x38)
                 {
                     if (millis() - play_pause_last_change_ < BLINK_THRESHOLD)
-                        update_state("Hot water selected");
+                    {
+                        if (data[11] == 0x07)
+                        {
+                            update_state("Hot water selected");
+                        }
+                        else
+                        {
+                            update_state("Hot water programming mode selected");
+                        }
+                    }                        
                     else
                         //update_state("Busy");
 						update_state("Brewing Hot water");
@@ -123,7 +145,20 @@ namespace esphome
                 if ((data[3] == 0x07 || data[3] == 0x38) && data[4] == 0x00 && data[5] == 0x00 && data[6] == 0x00)
                 {
                     if (millis() - play_pause_last_change_ < BLINK_THRESHOLD)
-                        update_state((data[3] == 0x07) ? "Espresso selected" : "2x Espresso selected");
+                    {
+                        if (data[9] == 0x38)
+                        {
+                            update_state("Ground Espresso selected");
+                        }
+                        else if (data[11] == 0x00)
+                        {
+                            update_state("Espresso programming mode selected");
+                        }
+                        else
+                        {
+                            update_state((data[3] == 0x07) ? "Espresso selected" : "2x Espresso selected");
+                        }
+                    }
                     else
                         //update_state("Busy");
 						update_state("Brewing Espresso");
