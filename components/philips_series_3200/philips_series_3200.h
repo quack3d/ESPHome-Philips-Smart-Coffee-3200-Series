@@ -2,12 +2,19 @@
 
 #include "esphome/core/component.h"
 #include "esphome/components/uart/uart.h"
-#include "../philips_power_switch/power.h"
-#include "../philips_action_button/action_button.h"
-#include "../philips_status_sensor/status_sensor.h"
-#include "../philips_bean_settings/bean_settings.h"
-#include "../philips_size_settings/size_settings.h"
-#include "../philips_milk_settings/milk_settings.h"
+#include "commands.h"
+#ifdef USE_SWITCH
+#include "switch/power.h"
+#endif
+#ifdef USE_BUTTON
+#include "button/action_button.h"
+#endif
+#ifdef USE_TEXT_SENSOR
+#include "text_sensor/status_sensor.h"
+#ifdef USE_NUMBER
+#include "number/beverage_setting.h"
+#endif
+#endif
 
 #define POWER_STATE_TIMEOUT 500
 
@@ -28,21 +35,30 @@ namespace esphome
              *
              * @param uart display uart reference
              */
-            void register_display_uart(uart::UARTComponent *uart) { display_uart_ = uart::UARTDevice(uart); };
+            void register_display_uart(uart::UARTComponent *uart)
+            {
+                display_uart_ = uart::UARTDevice(uart);
+            };
 
             /**
              * @brief Set the reference to the uart port connected to the Mainboard
              *
              * @param uart Mainboard uart reference
              */
-            void register_mainboard_uart(uart::UARTComponent *uart) { mainboard_uart_ = uart::UARTDevice(uart); };
+            void register_mainboard_uart(uart::UARTComponent *uart)
+            {
+                mainboard_uart_ = uart::UARTDevice(uart);
+            };
 
             /**
              * @brief Sets the pin used for power tripping the display unit
              *
              * @param pin GPIO pin
              */
-            void set_power_pin(GPIOPin *pin) { power_pin_ = pin; };
+            void set_power_pin(GPIOPin *pin)
+            {
+                power_pin_ = pin;
+            };
 
             /**
              * @brief Sets the invert status of the power pin
@@ -57,6 +73,7 @@ namespace esphome
                 power_trip_delay_ = time;
             }
 
+#ifdef USE_SWITCH
             /**
              * @brief Reference to a power switch object.
              * The switch state will be updated based on the presence/absence of display update messages.
@@ -71,7 +88,9 @@ namespace esphome
                 power_switch->set_initial_state(&initial_pin_state_);
                 power_switches_.push_back(power_switch);
             };
+#endif
 
+#ifdef USE_BUTTON
             /**
              * @brief Adds an action button to this controller.
              * No reference is stored, but the correct uart references is passed along.
@@ -83,7 +102,9 @@ namespace esphome
                 action_button->set_uart_device(&mainboard_uart_);
                 action_buttons_.push_back(action_button);
             }
+#endif
 
+#ifdef USE_TEXT_SENSOR
             /**
              * @brief Adds a status sensor to this controller
              * @param status_sensor reference to a status sensor
@@ -93,39 +114,23 @@ namespace esphome
                 status_sensors_.push_back(status_sensor);
             }
 
+#ifdef USE_NUMBER
             /**
-             * @brief Adds a bean settings entity to this controller
-             * @param bean_settings reference to a bean settings entity
+             * @brief Adds a beverage setting entity to this controller
+             * @param beverage_setting reference to a beverage setting entity
              */
-            void add_bean_settings(philips_bean_settings::BeanSettings *bean_settings)
+            void add_beverage_setting(philips_beverage_setting::BeverageSetting *beverage_setting)
             {
-                bean_settings->set_uart_device(&mainboard_uart_);
-                bean_settings_.push_back(bean_settings);
+                beverage_setting->set_uart_device(&mainboard_uart_);
+                beverage_settings_.push_back(beverage_setting);
             }
 
-            /**
-             * @brief Adds a size settings entity to this controller
-             * @param water_sensor reference to a size setting
-             */
-            void add_size_settings(philips_size_settings::SizeSettings *size_setting)
-            {
-                size_setting->set_uart_device(&mainboard_uart_);
-                size_setting_.push_back(size_setting);
-            }
-            
-            /**
-             * @brief Adds a milk settings entity to this controller
-             * @param milk_sensor reference to a size setting
-             */
-            void add_milk_settings(philips_milk_settings::MilkSettings *milk_setting)
-            {
-                milk_setting->set_uart_device(&mainboard_uart_);
-                milk_setting_.push_back(milk_setting);
-            }            
+#endif
+#endif
 
         private:
-            long last_message_from_mainboard_time_ = 0;        
-            long last_message_from_display_time_ = 0;
+            uint32_t last_message_from_mainboard_time_ = 0;
+            uint32_t last_message_from_display_time_ = 0;
 
             /// @brief reference to uart connected to the display unit
             uart::UARTDevice display_uart_;
@@ -142,23 +147,25 @@ namespace esphome
             /// @brief length of poweroutage applied to the display
             uint32_t power_trip_delay_ = 500;
 
+#ifdef USE_SWITCH
             /// @brief power switch reference
             std::vector<philips_power_switch::Power *> power_switches_;
+#endif
 
+#ifdef USE_TEXT_SENSOR
             /// @brief list of status sensors to update with messages
             std::vector<philips_status_sensor::StatusSensor *> status_sensors_;
 
-            /// @brief list of registered bean settings
-            std::vector<philips_bean_settings::BeanSettings *> bean_settings_;
+#ifdef USE_NUMBER
+            /// @brief list of registered beverage settings
+            std::vector<philips_beverage_setting::BeverageSetting *> beverage_settings_;
+#endif
+#endif
 
-            /// @brief list of registered water sensors
-            std::vector<philips_size_settings::SizeSettings *> size_setting_;
-            
-            /// @brief list of registered milk sensors
-            std::vector<philips_milk_settings::MilkSettings *> milk_setting_;
-
+#ifdef USE_BUTTON
             /// @brief list of registered action buttons
             std::vector<philips_action_button::ActionButton *> action_buttons_;
+#endif
         };
 
     } // namespace philips_series_3200

@@ -3,6 +3,7 @@
 #include "esphome/core/component.h"
 #include "esphome/components/text_sensor/text_sensor.h"
 #include "esphome/components/uart/uart.h"
+#include "../commands.h"
 
 // Feel free to lower this, you might get some invalid intermittent state though
 #define REPEAT_REQUIREMENT 30
@@ -30,12 +31,12 @@ namespace esphome
                 void update_status(uint8_t *data, size_t len);
 
                 /**
-                 * @brief Sets the status to OFF
+                 * @brief Sets the status to Off
                  */
                 void set_state_off()
                 {
-                    if (state != "OFF")
-                        publish_state("OFF");
+                    if (state != "Off")
+                        publish_state("Off");
                 };
 
                 /**
@@ -86,7 +87,7 @@ namespace esphome
                 bool use_latte_ = false;
 
                 /// @brief time of play/pause change
-                long play_pause_last_change_ = 0;
+                uint32_t play_pause_last_change_ = 0;
             };
         } // namespace philips_status_sensor
     }     // namespace philips_series_3200

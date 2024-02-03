@@ -35,147 +35,160 @@ philips_series_3200:
   id: philips
 
 text_sensor:
-  - platform: philips_status_sensor
+  - platform: philips_series_3200
     controller_id: philips
     id: status
     name: "Status"
     use_latte: true    
 
 switch:
-  - platform: philips_power_switch
+  - platform: philips_series_3200
     controller_id: philips
     name: "Power with clean"
     icon: mdi:coffee-maker
     clean: true
-  - platform: philips_power_switch
+  - platform: philips_series_3200
     controller_id: philips
     name: "Power without clean"
     icon: mdi:coffee-maker
     clean: false      
 
 button:
-  - platform: philips_action_button
+  - platform: philips_series_3200
     controller_id: philips
     action: MAKE_COFFEE
     name: "Make Coffee"
     icon: mdi:coffee
 
-  - platform: philips_action_button
+  - platform: philips_series_3200
     controller_id: philips
     action: SELECT_COFFEE
     name: "Select Coffee"
     icon: mdi:coffee    
 
-  - platform: philips_action_button
+  - platform: philips_series_3200
     controller_id: philips
     action: SELECT_ESPRESSO
     name: "Select Espresso"
     icon: mdi:coffee 
 
-  - platform: philips_action_button
+  - platform: philips_series_3200
     controller_id: philips
     action: SELECT_HOT_WATER
     name: "Select Hot water"
     icon: mdi:tea
 
-  - platform: philips_action_button
+  - platform: philips_series_3200
     controller_id: philips
     action: SELECT_STEAM
     name: "Select Latte Macchiato"
     icon: mdi:coffee
 
-  - platform: philips_action_button
+  - platform: philips_series_3200
     controller_id: philips
     action: SELECT_AMERICANO
     name: "Select Americano"
     icon: mdi:coffee    
 
-  - platform: philips_action_button
+  - platform: philips_series_3200
     controller_id: philips
     action: SELECT_CAPPUCCINO
     name: "Select Cappuccino"
     icon: mdi:coffee 
 
-  - platform: philips_action_button
+  - platform: philips_series_3200
     controller_id: philips
     action: PLAY_PAUSE
     name: "Select play/pause"
     icon: mdi:play-pause
 
 number:
-  - platform: philips_bean_settings
+  - platform: philips_series_3200
+    type: bean
     name: "Coffee strength"
     controller_id: philips
     status_sensor_id: status
     source: COFFEE
 
-  - platform: philips_size_settings
+  - platform: philips_series_3200
+    type: size
     name: "Coffee size"
     controller_id: philips
     status_sensor_id: status
     source: COFFEE
 
-  - platform: philips_bean_settings
+  - platform: philips_series_3200
+    type: bean
     name: "Espresso strength"
     controller_id: philips
     status_sensor_id: status
     source: ESPRESSO
 
-  - platform: philips_size_settings
+  - platform: philips_series_3200
+    type: size
     name: "Espresso size"
     controller_id: philips
     status_sensor_id: status
     source: ESPRESSO
 
-  - platform: philips_bean_settings
+  - platform: philips_series_3200
+    type: bean
     name: "Americano strength"
     controller_id: philips
     status_sensor_id: status
     source: AMERICANO
 
-  - platform: philips_size_settings
+  - platform: philips_series_3200
+    type: size
     name: "Americano size"
     controller_id: philips
     status_sensor_id: status
     source: AMERICANO
 
-  - platform: philips_bean_settings
+  - platform: philips_series_3200
+    type: bean
     name: "Cappuccino strength"
     controller_id: philips
     status_sensor_id: status
     source: CAPPUCCINO
 
-  - platform: philips_size_settings
+  - platform: philips_series_3200
+    type: size
     name: "Cappuccino size"
     controller_id: philips
     status_sensor_id: status
     source: CAPPUCCINO
 
-  - platform: philips_milk_settings
+  - platform: philips_series_3200
+    type: milk
     name: "Cappuccino milk level"
     controller_id: philips
     status_sensor_id: status
     source: CAPPUCCINO
 
-  - platform: philips_bean_settings
+  - platform: philips_series_3200
+    type: bean
     name: "Latte Macchiato strength"
     controller_id: philips
     status_sensor_id: status
     source: LATTE_MACCHIATO
 
-  - platform: philips_size_settings
+  - platform: philips_series_3200
+    type: size
     name: "Latte Macchiato size"
     controller_id: philips
     status_sensor_id: status
     source: LATTE_MACCHIATO
 
-  - platform: philips_milk_settings
+  - platform: philips_series_3200
+    type: milk
     name: "Latte Macchiato milk level"
     controller_id: philips
     status_sensor_id: status
     source: LATTE_MACCHIATO
 
-  - platform: philips_size_settings
+  - platform: philips_series_3200
+    type: size
     name: "Hot water size"
     controller_id: philips
     status_sensor_id: status

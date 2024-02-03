@@ -41,21 +41,20 @@ namespace esphome
                 {
                     // Send pre-power on message Makes the machine beep, but does not actually power on the machine.
                     for (unsigned int i = 0; i <= MESSAGE_REPETITIONS; i++)
-						mainboard_uart_->write_array({0xD5, 0x55, 0x0A, 0x01, 0x03, 0x00, 0x0E, 0x00, 0x00, 0x00, 0x2A, 0x10}); //pip, men slår ikke på maskinen
-                        
+                        mainboard_uart_->write_array(command_pre_power_on);
+
                     // Send power on message
                     if (cleaning_)
                     {
                         // Send power on command with cleaning
                         for (unsigned int i = 0; i <= MESSAGE_REPETITIONS; i++)
-							mainboard_uart_->write_array({0xD5, 0x55, 0x02, 0x01, 0x03, 0x00, 0x0E, 0x00, 0x00, 0x00, 0x1C, 0x17}); //slår på maskinen, ingen clean, men forsøker?
+                            mainboard_uart_->write_array(command_power_with_cleaning);
                     }
                     else
                     {
                         // Send power on command without cleaning
                         for (unsigned int i = 0; i <= MESSAGE_REPETITIONS; i++)
-							mainboard_uart_->write_array({0xD5, 0x55, 0x01, 0x01, 0x03, 0x00, 0x0E, 0x00, 0x00, 0x00, 0x01, 0x25}); // (fra logg -  maskinen cleanet ikke første, men prøvde neste)
-
+                            mainboard_uart_->write_array(command_power_without_cleaning);
                     }
                     mainboard_uart_->flush();
                     
@@ -67,7 +66,7 @@ namespace esphome
                 {
                     // Send power off message
                     for (unsigned int i = 0; i <= MESSAGE_REPETITIONS; i++)
-                        mainboard_uart_->write_array({0xD5, 0x55, 0x00, 0x01, 0x03, 0x00, 0x0E, 0x01, 0x00, 0x00, 0x39, 0x39});
+                        mainboard_uart_->write_array(command_power_off);
                     mainboard_uart_->flush();
                 }
 
@@ -95,6 +94,6 @@ namespace esphome
                 }
             }
 
-        } // namespace power_switch
+        } // namespace philips_power_switch
     }     // namespace philips_series_3200
 } // namespace esphome

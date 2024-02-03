@@ -29,6 +29,7 @@ namespace esphome
 
                 // Check if a action button is currently performing a long press
                 bool long_pressing = false;
+#ifdef USE_BUTTON
                 for (philips_action_button::ActionButton *button : action_buttons_)
                 {
                     if (button->is_long_pressing())
@@ -37,6 +38,7 @@ namespace esphome
                         break;
                     }
                 }
+#endif
 
                 // Drop messages if button long-press is currently injecting messages
                 if (!long_pressing)
@@ -48,7 +50,7 @@ namespace esphome
             while (mainboard_uart_.available())
             {
                 uint8_t buffer = mainboard_uart_.peek();
-                if (buffer == 0xD5)
+                if (buffer == message_header[0])
                     break;
                 display_uart_.write(mainboard_uart_.read());
             }
@@ -62,44 +64,46 @@ namespace esphome
                 display_uart_.write_array(buffer, size);
 
                 // Only process messages starting with start bytes
-                if (size > 1 && buffer[0] == 0xD5 && buffer[1] == 0x55)
+                if (size > 1 && buffer[0] == message_header[0] && buffer[1] == message_header[1])
                 {
                     last_message_from_mainboard_time_ = millis();
 
+#ifdef USE_TEXT_SENSOR
                     // Update status sensors
                     for (philips_status_sensor::StatusSensor *status_sensor : status_sensors_)
                         status_sensor->update_status(buffer, size);
 
-                    // Update bean settings
-                    for (philips_bean_settings::BeanSettings *bean_setting : bean_settings_)
-                        bean_setting->update_status(buffer, size);
-
-                    // Update size settings
-                    for (philips_size_settings::SizeSettings *size_setting : size_setting_)
-                        size_setting->update_status(buffer, size);
-
-                    // Update milk settings
-                    for (philips_milk_settings::MilkSettings *milk_setting : milk_setting_)
-                        milk_setting->update_status(buffer, size);
+#ifdef USE_NUMBER
+                    // Update beverage settings
+                    for (philips_beverage_setting::BeverageSetting *beverage_setting : beverage_settings_)
+                        beverage_setting->update_status(buffer, size);
+#endif
+#endif
                 }
             }
 
             // Publish power state if required as long as the display is requesting messages
             if (millis() - last_message_from_display_time_ > POWER_STATE_TIMEOUT)
             {
+#ifdef USE_SWITCH
                 // Update power switches
                 for (philips_power_switch::Power *power_switch : power_switches_)
                     power_switch->update_state(false);
+#endif
 
+#ifdef USE_TEXT_SENSOR
                 // Update status sensors
                 for (philips_status_sensor::StatusSensor *status_sensor : status_sensors_)
                     status_sensor->set_state_off();
+#endif
             }
             else
             {
+#ifdef USE_SWITCH
                 // Update power switches
                 for (philips_power_switch::Power *power_switch : power_switches_)
                     power_switch->update_state(true);
+#endif
             }
 
             display_uart_.flush();

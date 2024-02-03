@@ -27,6 +27,7 @@ A example configuration can be found [here](example.yaml)
 - **power_pin**(**Required**, [Pin](https://esphome.io/guides/configuration-types.html#config-pin)): Pin to which the MOSFET/Transistor is connected. This pin is used to temporarily turn of the display unit.
 - **invert_power_pin**(**Optional**: boolean): If set to `true` the output of the power pin will be inverted. Defaults to `false`.
 - **power_trip_delay**(**Optional**: Time): Determines the length of the power outage applied to the display unit, which is to trick it into turning on. Defaults to `500ms`.
+- **model**(**Optional**: int): Different models or revisions may use different commands. This option can be used to specify the command set used by this component. Select one of `EP2220`. Defaults to `EP2220`.
 
 ## Philips Power switch
 
@@ -34,7 +35,7 @@ A example configuration can be found [here](example.yaml)
 - **clean**(**Optional**: boolean): If set to `true` the machine will perform a cleaning cycle during startup. Otherwise the machine will power on without cleaning. Defaults to `true`.
 - All other options from [Switch](https://esphome.io/components/switch/index.html#config-switch)
 
-## Philips Action Button
+## Action Button
 
 - **controller_id**(**Required**, string): The Philips Series 3200-Controller to which this entity belongs
 - **action**(**Required**, int): The action performed by this button. Select one of `MAKE_COFFEE`, `SELECT_COFFEE`, `SELECT_ESPRESSO`, `MAKE_ESPRESSO`, `SELECT_HOT_WATER`, `MAKE_HOT_WATER`, `SELECT_STEAM`, `MAKE_STEAM`, `SELECT_AMERICANO`, `SELECT_LATTE_MACCHIATO`, `SELECT_CAPPUCCINO`, `MILK`, `BEAN`, `SIZE`, `AQUA_CLEAN`, `CALC_CLEAN`, `PLAY_PAUSE`.
@@ -47,8 +48,9 @@ A example configuration can be found [here](example.yaml)
 - All other options from [Text Sensor](https://esphome.io/components/text_sensor/index.html#config-text-sensor)
 - **use_latte**(**Optional**, boolean): If set to `true`, `Latte Macchiato selected` will be reported instead of `Steam selected`. This option is intended for machines like the EP3243 that can make latte macchiato. Default to `false`.
 
-## Bean Settings
+## Bean and Size Settings
 
+- **type**(**Required**, string): The type of this number component. One of `size`, `bean` and `milk`. If `size` is selected, this component will report/manipulate the beverage size. If `bean` is used, this component will report/manipulate the beverage strength. If `milk` is used, this component will report/manipulate the milk amount.
 - **controller_id**(**Required**, string): The Philips Series 3200-Controller to which this entity belongs
 - **status_sensor_id**(**Required**, string): Id of a status sensor which is also connected to the controller.
 - **source**(**Required**, int): The source of this sensor. Select one of `COFFEE`, `ESPRESSO`, `LATTE MACCHIATO`. When selecting `LATTE MACCHIATO` the related status sensor must use `use_latte = true`.

@@ -3,6 +3,7 @@
 #include "esphome/core/component.h"
 #include "esphome/components/button/button.h"
 #include "esphome/components/uart/uart.h"
+#include "../commands.h"
 
 #define MESSAGE_REPETITIONS 5
 #define BUTTON_SEQUENCE_DELAY 100
@@ -39,7 +40,7 @@ namespace esphome
                 SELECT_CAPPUCCINO,
                 MAKE_AMERICANO,
                 MAKE_CAPPUCCINO,
-                SELECT_MILK_LEVEL
+                SELECT_MILK
             };
 
             /**
@@ -57,14 +58,20 @@ namespace esphome
                  *
                  * @param action Action to use
                  */
-                void set_action(Action action) { action_ = action; };
+                void set_action(Action action)
+                {
+                    action_ = action;
+                };
 
                 /**
                  * @brief Reference to uart which is connected to the mainboard
                  *
                  * @param uart uart connected to mainboard
                  */
-                void set_uart_device(uart::UARTDevice *uart) { mainboard_uart_ = uart; };			
+                void set_uart_device(uart::UARTDevice *uart)
+                {
+                    mainboard_uart_ = uart;
+                };
 
                 /**
                  * @brief Sets the long press parameter on this button component.
@@ -115,9 +122,9 @@ namespace esphome
                 /// @brief true if the component is currently performing a long press
                 bool is_long_pressing_ = false;
                 /// @brief time at which the button press was started
-                long press_start_ = 0;
+                uint32_t press_start_ = -(LONG_PRESS_DURATION + 1);
                 /// @brief time at which the last message was sent
-                long last_message_sent_ = 0;
+                uint32_t last_message_sent_ = 0;
             };
         } // namespace philips_action_button
     }     // namespace philips_series_3200

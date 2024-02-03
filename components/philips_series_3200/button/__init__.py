@@ -2,16 +2,15 @@ import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import button
 from esphome.const import CONF_ID
-from ..philips_series_3200 import CONTROLLER_ID, PhilipsSeries3200
+
+from .. import CONTROLLER_ID, PhilipsSeries3200, philips_series_3200_ns
 
 DEPENDENCIES = ["philips_series_3200"]
 
 CONF_ACTION = "action"
 CONF_LONG_PRESS = "long_press"
 
-philips_action_button_ns = cg.esphome_ns.namespace("philips_series_3200").namespace(
-    "philips_action_button"
-)
+philips_action_button_ns = philips_series_3200_ns.namespace("philips_action_button")
 ActionButton = philips_action_button_ns.class_(
     "ActionButton", button.Button, cg.Component
 )
@@ -33,7 +32,7 @@ ACTIONS = {
     "PLAY_PAUSE": Action.PLAY_PAUSE,
     "SELECT_AMERICANO": Action.SELECT_AMERICANO,
     "SELECT_CAPPUCCINO": Action.SELECT_CAPPUCCINO,
-    "MILK_LEVEL": Action.SELECT_MILK_LEVEL,
+    "MILK": Action.SELECT_MILK,
 }
 
 
