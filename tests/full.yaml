@@ -1,7 +1,7 @@
 esphome:
   name: philips
 
-esp8266:
+esp32:
   board: lolin_s2_mini
 
 external_components:
@@ -35,10 +35,7 @@ text_sensor:
     controller_id: philips
     id: status
     name: "Status"
-  - platform: philips_series_3200
-    controller_id: philips
-    use_cappuccino: true
-    name: "Status cappuccino"
+    use_latte: true
 
 switch:
   - platform: philips_series_3200
