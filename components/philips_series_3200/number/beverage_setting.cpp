@@ -39,14 +39,14 @@ namespace esphome
                       (status_sensor_->get_raw_state().compare("Espresso selected") == 0 ||
                        status_sensor_->get_raw_state().compare("2x Espresso selected") == 0 ||
                        (!is_bean_ && status_sensor_->get_raw_state().compare("Ground Espresso selected") == 0))) ||
-                     ((source_ == ESPRESSO || source_ == ANY) &&
+                     ((source_ == AMERICANO || source_ == ANY) &&
                       (status_sensor_->get_raw_state().compare("Americano selected") == 0 ||
                        status_sensor_->get_raw_state().compare("2x Americano selected") == 0 ||
                        (!is_bean_ && status_sensor_->get_raw_state().compare("Ground Americano selected") == 0))) ||                       
                      (!is_bean_ && (source_ == HOT_WATER || source_ == ANY) &&
                       status_sensor_->get_raw_state().compare("Hot water selected") == 0) ||
                      ((source_ == LATTE_MACCHIATO || source_ == ANY) &&
-                      status_sensor_->get_raw_state().compare("Latte Macchiato selected") == 0)
+                      status_sensor_->get_raw_state().compare("Latte Macchiato selected") == 0) ||
                      ((source_ == CAPPUCCINO || source_ == ANY) &&
                       status_sensor_->get_raw_state().compare("Cappuccino selected") == 0)))                      
                 {

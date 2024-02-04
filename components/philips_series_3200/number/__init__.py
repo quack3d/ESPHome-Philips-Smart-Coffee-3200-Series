@@ -11,7 +11,7 @@ DEPENDENCIES = ["philips_series_3200"]
 
 CONF_TYPE_SIZE = "size"
 CONF_TYPE_BEAN = "bean"
-CONF_TYPE_BEAN = "milk"
+CONF_TYPE_MILK = "milk"
 CONF_SOURCE = "source"
 
 philips_beverage_settings_ns = philips_series_3200_ns.namespace(
@@ -28,9 +28,8 @@ SOURCES = {
     "ESPRESSO": Source.ESPRESSO,
     "CAPPUCCINO": Source.CAPPUCCINO,
     "HOT_WATER": Source.HOT_WATER,
-    "AMERICANO": Action.SELECT_AMERICANO,
-    "LATTE_MACCHIATO": Action.SELECT_LATTE_MACCHIATO, 
-    
+    "AMERICANO": Source.AMERICANO,
+    "LATTE_MACCHIATO": Source.LATTE_MACCHIATO,   
 }
 
 
@@ -62,6 +61,7 @@ CONFIG_SCHEMA = cv.All(
         {
             CONF_TYPE_SIZE: SUB_SCHEMA,
             CONF_TYPE_BEAN: SUB_SCHEMA,
+            CONF_TYPE_MILK: SUB_SCHEMA,            
         }
     ),
     validate_enum,

@@ -104,92 +104,19 @@ button:
 
 number:
   - platform: philips_series_3200
-    type: bean
-    name: "Coffee strength"
-    controller_id: philips
-    status_sensor_id: status
-    source: COFFEE
-
-  - platform: philips_series_3200
     type: size
-    name: "Coffee size"
+    name: "Size"
     controller_id: philips
     status_sensor_id: status
-    source: COFFEE
 
   - platform: philips_series_3200
     type: bean
-    name: "Espresso strength"
+    name: "Strength"
     controller_id: philips
-    status_sensor_id: status
-    source: ESPRESSO
-
-  - platform: philips_series_3200
-    type: size
-    name: "Espresso size"
-    controller_id: philips
-    status_sensor_id: status
-    source: ESPRESSO
-
-  - platform: philips_series_3200
-    type: bean
-    name: "Americano strength"
-    controller_id: philips
-    status_sensor_id: status
-    source: AMERICANO
-
-  - platform: philips_series_3200
-    type: size
-    name: "Americano size"
-    controller_id: philips
-    status_sensor_id: status
-    source: AMERICANO
-
-  - platform: philips_series_3200
-    type: bean
-    name: "Cappuccino strength"
-    controller_id: philips
-    status_sensor_id: status
-    source: CAPPUCCINO
-
-  - platform: philips_series_3200
-    type: size
-    name: "Cappuccino size"
-    controller_id: philips
-    status_sensor_id: status
-    source: CAPPUCCINO
+    status_sensor_id: status    
 
   - platform: philips_series_3200
     type: milk
-    name: "Cappuccino milk level"
+    name: "Milk"
     controller_id: philips
-    status_sensor_id: status
-    source: CAPPUCCINO
-
-  - platform: philips_series_3200
-    type: bean
-    name: "Latte Macchiato strength"
-    controller_id: philips
-    status_sensor_id: status
-    source: LATTE_MACCHIATO
-
-  - platform: philips_series_3200
-    type: size
-    name: "Latte Macchiato size"
-    controller_id: philips
-    status_sensor_id: status
-    source: LATTE_MACCHIATO
-
-  - platform: philips_series_3200
-    type: milk
-    name: "Latte Macchiato milk level"
-    controller_id: philips
-    status_sensor_id: status
-    source: LATTE_MACCHIATO
-
-  - platform: philips_series_3200
-    type: size
-    name: "Hot water size"
-    controller_id: philips
-    status_sensor_id: status
-    source: HOT_WATER
+    status_sensor_id: status  

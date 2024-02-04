@@ -34,7 +34,7 @@ namespace esphome
                 play_pause_led_ = data[16] == led_on;
 
                 // Check for idle state (selection led on)
-                if (data[3] == led_on && data[4] == led_on && data[5] == led_on && data[6] == led_on)
+                if (data[3] == led_on && data[4] == led_on && data[5] == led_on && data[13] == led_off && data[14] == led_off && data[15] == led_off)
                 {
                     // selecting a beverage can result in a short "busy" period since the play/pause button has not been blinking
                     // This can be circumvented: if the user is on the selection screen/idle we can reset the timer
@@ -122,7 +122,7 @@ namespace esphome
                 }
                 
                 // Hot water selected
-                if (data[3] == 0x00 && data[4] == 0x00 && data[5] == 0x00 && data[6] == 0x00 && data[7] == 0x38)
+                if (data[3] == led_off && data[4] == led_off && data[5] == led_off && data[6] == led_off && data[7] == led_second)
                 {
                     if (millis() - play_pause_last_change_ < BLINK_THRESHOLD)
                     {
@@ -166,10 +166,10 @@ namespace esphome
                 }
                 
                 // Americano selected
-                if (data[3] == 0x00 && data[4] == 0x00 && data[5] == 0x00 && (data[6] == 0x38 || data[7] == 0x7))
+                if (data[3] == led_off && data[4] == led_off && data[5] == led_off && (data[6] == led_second || data[7] == led_on))
                 {
                     if (millis() - play_pause_last_change_ < BLINK_THRESHOLD)
-                        update_state((data[6] == 0x38) ? "Americano selected" : "2x Americano selected");
+                        update_state((data[6] == led_second) ? "Americano selected" : "2x Americano selected");
                     else
                         //update_state("Busy");
 						update_state("Brewing Americano");
