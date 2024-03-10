@@ -1,5 +1,9 @@
 # ESPHome Smart Coffee (Philips Series 3200)
-
+----------------------
+----------------------
+# DEPRECATED. Please use TillFleisch's repo which now supports 3200 series: https://github.com/TillFleisch/ESPHome-Philips-Smart-Coffee #
+----------------------
+----------------------
 This project integrates a Philips Series 3200 Coffee Machine into [Home Assistant](https://home-assistant.io) through [ESPHome](https://esphome.io). It is a fork of TillFleich's repo for the 2200 Series.
 This component has been developed on a Philips EP3243 and an ESP32 S2 Mini.
 
